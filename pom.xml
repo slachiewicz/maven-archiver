@@ -82,14 +82,10 @@
       <artifactId>maven-shared-utils</artifactId>
       <version>3.3.4</version>
     </dependency>
-    <!--
-      ! Pulled in as a direct dependency to resolve conflicts.
-      ! We want the most recent commons-io compatible to the target JDK.
-    -->
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
-      <version>2.7</version>
+      <version>2.8.0</version>
     </dependency>
 
     <dependency>
