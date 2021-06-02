@@ -35,7 +35,7 @@
 
   <properties>
     <mavenVersion>3.1.1</mavenVersion>
-    <javaVersion>7</javaVersion>
+    <javaVersion>8</javaVersion>
     <surefire.version>2.22.2</surefire.version>
     <project.build.outputTimestamp>2021-01-22T19:30:25Z</project.build.outputTimestamp>
   </properties>
