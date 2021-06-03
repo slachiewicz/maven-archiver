@@ -128,8 +128,7 @@ public class MavenArchiver
         throws ManifestException, DependencyResolutionRequiredException
     {
         boolean hasManifestEntries = !config.isManifestEntriesEmpty();
-        Map<String, String> entries =
-            hasManifestEntries ? config.getManifestEntries() : Collections.<String, String>emptyMap();
+        Map<String, String> entries = hasManifestEntries ? config.getManifestEntries() : Collections.emptyMap();
 
         Manifest manifest = getManifest( session, project, config.getManifest(), entries );
 
@@ -197,7 +196,7 @@ public class MavenArchiver
     public Manifest getManifest( MavenProject project, ManifestConfiguration config )
         throws ManifestException, DependencyResolutionRequiredException
     {
-        return getManifest( null, project, config, Collections.<String, String>emptyMap() );
+        return getManifest( null, project, config, Collections.emptyMap() );
     }
 
     /**
@@ -211,7 +210,7 @@ public class MavenArchiver
     public Manifest getManifest( MavenSession mavenSession, MavenProject project, ManifestConfiguration config )
         throws ManifestException, DependencyResolutionRequiredException
     {
-        return getManifest( mavenSession, project, config, Collections.<String, String>emptyMap() );
+        return getManifest( mavenSession, project, config, Collections.emptyMap() );
     }
 
     private void addManifestAttribute( Manifest manifest, Map<String, String> map, String key, String value )
@@ -471,11 +470,10 @@ public class MavenArchiver
             addManifestAttribute( m, entries, "Extension-List", extensionsList.toString() );
         }
 
-        for ( Object artifact1 : artifacts )
+        for ( Artifact artifact : artifacts )
         {
             // TODO: the correct solution here would be to have an extension type, and to read
             // the real extension values either from the artifact's manifest or some part of the POM
-            Artifact artifact = (Artifact) artifact1;
             if ( "jar".equals( artifact.getType() ) )
             {
                 String artifactId = artifact.getArtifactId().replace( '.', '_' );
@@ -487,7 +485,7 @@ public class MavenArchiver
                 if ( artifact.getRepository() != null )
                 {
                     iname = artifactId + "-Implementation-URL";
-                    String url = artifact.getRepository().getUrl() + "/" + artifact.toString();
+                    String url = artifact.getRepository().getUrl() + "/" + artifact;
                     addManifestAttribute( m, entries, iname, url );
                 }
             }

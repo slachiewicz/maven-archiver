@@ -23,7 +23,6 @@ import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.artifact.handler.ArtifactHandler;
 import org.apache.maven.artifact.handler.DefaultArtifactHandler;
-import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.execution.DefaultMavenExecutionRequest;
 import org.apache.maven.execution.DefaultMavenExecutionResult;
 import org.apache.maven.execution.MavenExecutionRequest;
@@ -651,12 +650,6 @@ public class MavenArchiverTest
                 .containsExactly( "dummy1-1.0.jar", "dummy2-1.5.jar", "dummy3-2.0.jar" );
     }
 
-    private void deleteAndAssertNotPresent( File jarFile )
-    {
-        jarFile.delete();
-        assertThat( jarFile ).doesNotExist();
-    }
-
     @Test
     public void testDefaultClassPathValue_WithSnapshot()
         throws Exception
@@ -1173,7 +1166,8 @@ public class MavenArchiverTest
 
     private JarArchiver getCleanJarArchiver( File jarFile )
     {
-        deleteAndAssertNotPresent( jarFile );
+        jarFile.delete();
+        assertThat( jarFile ).doesNotExist();
         JarArchiver jarArchiver = new JarArchiver();
         jarArchiver.setDestFile( jarFile );
         return jarArchiver;
@@ -1221,9 +1215,9 @@ public class MavenArchiverTest
         model.setVersion( "0.1.1" );
 
         final MavenProject project = new MavenProject( model );
-        project.setExtensionArtifacts( Collections.<Artifact>emptySet() );
-        project.setRemoteArtifactRepositories( Collections.<ArtifactRepository>emptyList() );
-        project.setPluginArtifactRepositories( Collections.<ArtifactRepository>emptyList() );
+        project.setExtensionArtifacts( Collections.emptySet() );
+        project.setRemoteArtifactRepositories( Collections.emptyList() );
+        project.setPluginArtifactRepositories( Collections.emptyList() );
         return project;
     }
 
